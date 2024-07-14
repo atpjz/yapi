@@ -781,7 +781,6 @@ export default class Run extends Component {
                   <span className="eq-symbol">=</span>
                   <Input
                     value={item.value}
-                    disabled={!!item.abled}
                     className="value"
                     onChange={e => this.changeParam('req_headers', e.target.value, index)}
                     placeholder="参数值"

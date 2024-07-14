@@ -176,16 +176,28 @@ module.exports = {
               '?sourceMap'
           )
         });
-
-        baseConfig.module.preLoaders.push({
+       baseConfig.module.preLoaders.push({
           test: /\.(js|jsx)$/,
-          exclude: /tui-editor|node_modules|google-diff.js/,
-          loader: 'eslint-loader'
+          loader: 'babel-loader',
+          include: [
+            path.resolve(__dirname, 'node_modules/fs-extra'),
+            path.resolve(__dirname, 'node_modules/universalify'),
+            path.resolve(__dirname, 'node_modules/nodemailer'),
+          ],
         });
+
+        baseConfig.externals= {
+          fs: require('fs'),
+          net: require('net'),
+          dns: require('dns'),
+          tls: require('tls'),
+          child_process: require('child_process')
+        }
 
         baseConfig.module.preLoaders.push({
           test: /\.json$/,
-          loader: 'json-loader'
+          loader: 'json-loader',
+          exclude: /config.json/
         });
 
         if (this.env == 'prd') {
